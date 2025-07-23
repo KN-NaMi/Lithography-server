@@ -1,5 +1,11 @@
 import os
-os.environ["SDL_AUDIODRIVER"] = "dummy" 
+
+if not os.environ.get("DISPLAY"):
+    print("Brak DISPLAY - wymuszam tryb headless")
+    os.environ["SDL_VIDEODRIVER"] = "dummy"
+
+os.environ["SDL_AUDIODRIVER"] = "dummy"
+
 
 import pygame
 import requests
