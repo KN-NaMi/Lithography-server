@@ -6,5 +6,6 @@ services:
       - "8000:8000"
     volumes:
       - ./images:/images
-
-
+    devices:
+      - "/dev/video0:/dev/video0"
+    runtime: nvidia 
