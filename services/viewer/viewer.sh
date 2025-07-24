@@ -1,8 +1,8 @@
 #!/bin/bash
 
-URL="http://localhost:5000/stream"
+URL="http://localhost:8000/stream"
 
-BROWSER_CMD="chromium --no-sandbox --kiosk --app=$URL"
+BROWSER_CMD="chromium --no-sandbox --kiosk $URL"
 
 LOGFILE="$HOME/browser_watchdog.log"
 
