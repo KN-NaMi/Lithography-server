@@ -3,7 +3,7 @@
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 echo "[INFO] Starting Docker Compose..."
-docker-compose -f "$ROOT_DIR/docker-compose.yml" up -d --build
+docker compose -f "$ROOT_DIR/docker-compose.yml" up -d --build
 
 API_URL="http://localhost:8000"
 echo "[INFO] Waiting for API to start at $API_URL ..."
