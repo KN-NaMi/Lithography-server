@@ -1,7 +1,9 @@
 #!/bin/bash
 
 URL="http://localhost:5000/stream"
-BROWSER_CMD="chromium --kiosk --app=$URL"
+
+BROWSER_CMD="chromium --no-sandbox --kiosk --app=$URL"
+
 LOGFILE="$HOME/browser_watchdog.log"
 
 function is_monitor_connected() {
@@ -15,7 +17,7 @@ while true; do
     if is_monitor_connected; then
         if ! pgrep -f "chromium" > /dev/null; then
             echo "$(date): Monitor connected. Starting Chromium..." | tee -a "$LOGFILE"
-            $BROWSER_CMD &
+            $BROWSER_CMD >> "$LOGFILE" 2>&1 &
         fi
     else
         if pgrep -f "chromium" > /dev/null; then
