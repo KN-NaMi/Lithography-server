@@ -7,13 +7,4 @@ services:
     volumes:
       - ./images:/images
 
-  viewer:
-    build: ./services/viewer
-    container_name: viewer
-    depends_on:
-      - api
-    environment:
-      - DISPLAY=${DISPLAY}
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-    runtime: nvidia
+

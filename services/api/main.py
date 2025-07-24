@@ -1,27 +1,31 @@
-from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import FileResponse
-import shutil
-from pathlib import Path
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.responses import StreamingResponse
+import os
+import time
 
 app = FastAPI()
 
-UPLOAD_DIR = Path("/images")
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+IMAGE_PATH = "current_image.jpg"
 
-@app.get("/")
-async def root():
-    return {"message": "Hello from uv on macOS!"}
+def image_stream():
+    while True:
+        if os.path.exists(IMAGE_PATH):
+            with open(IMAGE_PATH, "rb") as f:
+                frame = f.read()
+            yield (b"--frame\r\n"
+                   b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
+        time.sleep(0.05) 
 
-@app.post("/upload-image")
+@app.get("/stream")
+def stream():
+    return StreamingResponse(image_stream(), media_type="multipart/x-mixed-replace; boundary=frame")
+
+@app.post("/upload")
 async def upload_image(file: UploadFile = File(...)):
-    file_path = UPLOAD_DIR / file.filename
-    with file_path.open("wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-    return {"status": "ok", "filename": file.filename}
-
-@app.get("/images/{filename}")
-async def get_image(filename: str):
-    file_path = UPLOAD_DIR / filename
-    if not file_path.exists():
-        return {"error": "File not found"}
-    return FileResponse(file_path)
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="Plik nie jest obrazem")
+    
+    with open(IMAGE_PATH, "wb") as f:
+        f.write(await file.read())
+    
+    return {"message": "Obraz został przesłany pomyślnie"}
