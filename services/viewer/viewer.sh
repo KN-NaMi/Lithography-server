@@ -2,7 +2,7 @@
 
 URL="http://localhost:8000/stream"
 
-BROWSER_CMD="chromium --no-sandbox --kiosk $URL"
+BROWSER_CMD="chromium-browser --no-sandbox --kiosk $URL"
 
 LOGFILE="$HOME/browser_watchdog.log"
 
