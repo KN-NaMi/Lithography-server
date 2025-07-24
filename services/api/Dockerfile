@@ -1,5 +1,8 @@
 FROM nvcr.io/nvidia/l4t-base:r36.2.0
 
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Warsaw
+
 RUN apt-get update && apt-get install -y \
     python3 python3-pip python3-venv \
     curl git build-essential \
