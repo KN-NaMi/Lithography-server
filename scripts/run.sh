@@ -17,7 +17,7 @@ for i in {1..30}; do
     fi
 done
 
-VIEWER_SCRIPT="$ROOT_DIR/viewer/viewer.sh"
+VIEWER_SCRIPT="$ROOT_DIR/services/viewer/viewer.sh"
 if [ -f "$VIEWER_SCRIPT" ]; then
     echo "[INFO] Starting viewer.sh..."
     bash "$VIEWER_SCRIPT"
