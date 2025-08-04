@@ -16,6 +16,9 @@ class NaMiDevice:
         self.lock_expires = None
         self.lock = threading.Lock()
 
+    def start(self):
+        self.start_udp_discovery()
+
     def start_udp_discovery(self):
         def run():
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
