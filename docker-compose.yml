@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   api:
-    build: ./services/api
+    build: ./services/server
     container_name: nami-api
     ports:
       - "8000:8000"
