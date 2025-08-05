@@ -4,9 +4,11 @@ RUN pip install uv
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock ./
-RUN uv pip install --system
-
+COPY pyproject.toml uv.lock* ./
 COPY . .
+
+RUN uv sync --no-dev --frozen
+
+EXPOSE 8000
 
 CMD ["uv","run", "main.py"]
