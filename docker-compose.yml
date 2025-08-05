@@ -14,6 +14,5 @@ services:
     image: mpromonet/webrtc-streamer:latest
     container_name: webrtc-streamer
     ports:
-      - "8001:8000"         
-    environment:
-      - INPUT=rtsp://host.docker.internal:8554/test
+      - "8001:8000"
+    command: ["-n", "webcam", "-u", "rtsp://127.0.0.1:8554/test"]
