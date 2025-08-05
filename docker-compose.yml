@@ -15,4 +15,4 @@ services:
     container_name: webrtc-streamer
     ports:
       - "8001:8000"
-    command: ["-n", "webcam", "-u", "rtsp://localhost:8554/test"]
+    command: ["-n", "webcam", "-u", "rtsp://192.168.100.70:8554/test"]
