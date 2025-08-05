@@ -6,4 +6,4 @@ services:
     container_name: nami-api
     ports:
       - "8000:8000"
-
+      - "5005:5005/udp"
