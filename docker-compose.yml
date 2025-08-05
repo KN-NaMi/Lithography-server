@@ -5,5 +5,15 @@ services:
     build: ./services/server
     container_name: nami-api
     ports:
-      - "8000:8000"
-      - "5005:5005/udp"
+      - "8000:8000"          
+      - "5005:5005/udp"      
+    depends_on:
+      - webrtc
+
+  webrtc:
+    image: mpromonet/webrtc-streamer:latest
+    container_name: webrtc-streamer
+    ports:
+      - "8001:8000"         
+    environment:
+      - INPUT=rtsp://host.docker.internal:8554/test
