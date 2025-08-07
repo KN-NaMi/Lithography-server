@@ -26,6 +26,10 @@ services:
     ipc: host
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev/video0:/dev/video0
     deploy:
       resources:
         reservations:

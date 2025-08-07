@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y \
     gstreamer1.0-plugins-ugly \
     gstreamer1.0-libav \
     libgstreamer1.0-dev \
+    v4l-utils \
+    libx264-dev \
     && apt-get clean
 
 COPY main.py /main.py
