@@ -21,7 +21,6 @@ services:
     build: ./services/rtsp
     container_name: rtsp-server
     privileged: true
-    runtime: nvidia
     network_mode: host
     ipc: host
     environment:
