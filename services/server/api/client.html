@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>RTSP przez WebRTC</h2>
+    <video id="video" autoplay playsinline controls></video>
+    <button onclick="start()">Start</button>
+
+    <script>
+      let pc = new RTCPeerConnection();
+
+      pc.ontrack = (event) => {
+        document.getElementById("video").srcObject = event.streams[0];
+      };
+
+      async function start() {
+        pc.addTransceiver("video", { direction: "recvonly" });
+
+        let offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+
+        let form = new FormData();
+        form.append("sdp", pc.localDescription.sdp);
+        form.append("type", pc.localDescription.type);
+
+        let response = await fetch("/offer", {
+          method: "POST",
+          body: form
+        });
+
+        let answer = await response.json();
+        await pc.setRemoteDescription(answer);
+      }
+    </script>
+  </body>
+</html>
