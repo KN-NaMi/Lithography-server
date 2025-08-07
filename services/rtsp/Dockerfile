@@ -15,6 +15,6 @@ RUN apt-get update && apt-get install -y \
     libgstreamer1.0-dev \
     && apt-get clean
 
-COPY rtsp.py /main.py
+COPY main.py /main.py
 
 CMD ["python3", "/main.py"]
