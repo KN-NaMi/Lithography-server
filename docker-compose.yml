@@ -26,12 +26,10 @@ services:
     ipc: host
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
-      - DISPLAY=${DISPLAY}
       - GST_PLUGIN_PATH=""
       - GST_PLUGIN_SYSTEM_PATH=""
       - GST_DEBUG=3
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /dev/video0:/dev/video0
     deploy:
       resources:
