@@ -17,10 +17,6 @@ RUN apt-get update && apt-get install -y \
     libx264-dev \
     && apt-get clean
 
-# Set environment to avoid NVIDIA-specific plugins
-ENV GST_PLUGIN_PATH=""
-ENV GST_PLUGIN_SYSTEM_PATH=""
-
 COPY main.py /main.py
 
 CMD ["python3", "/main.py"]
