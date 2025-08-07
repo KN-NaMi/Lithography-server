@@ -23,3 +23,6 @@ services:
     privileged: true
     runtime: nvidia
     network_mode: host
+    ipc: host
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
