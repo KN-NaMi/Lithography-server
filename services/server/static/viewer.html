@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Viewer</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #000; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            overflow: hidden;
+        }
+        .image-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            width: 100vw; 
+            height: 100vh; 
+        }
+        img { 
+            max-width: 100vw; 
+            max-height: 100vh; 
+            object-fit: contain; 
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img id="imageDisplay" src="/mask/stream" alt="Mask Image">
+    </div>
+    
+    <script>
+        let currentVersion = 0;
+        
+        // Auto-refresh image every 500ms for faster updates
+        setInterval(async () => {
+            try {
+                const response = await fetch('/mask/version');
+                const data = await response.json();
+                if (data.version !== currentVersion) {
+                    currentVersion = data.version;
+                    const img = document.getElementById('imageDisplay');
+                    img.src = '/mask/stream?v=' + currentVersion + '&t=' + Date.now();
+                }
+            } catch (error) {
+                console.log('Error checking version:', error);
+            }
+        }, 500);
+    </script>
+</body>
+</html> 
