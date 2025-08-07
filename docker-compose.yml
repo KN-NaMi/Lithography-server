@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  api:
+  server:
     build: ./services/server
-    container_name: nami-api
+    container_name: nami-server
     ports:
       - "8000:8000"          
       - "5005:5005/udp"      
@@ -15,4 +15,11 @@ services:
     container_name: webrtc-streamer
     ports:
       - "8001:8000"
-    command: ["-n", "webcam", "-u", "rtsp://192.168.100.70:8554/test"]
+    command: ["-n", "camera", "-u", "rtsp://192.168.100.70:8554/test"]
+
+  rtsp:
+    build: ./services/rtsp
+    container_name: rtsp-server
+    privileged: true
+    runtime: nvidia
+    network_mode: host
